@@ -1,0 +1,4 @@
+name: ClickFire
+version: '${project.version}'
+main: net.kunmc.lab.clickfire.ClickFire
+api-version: 1.16
