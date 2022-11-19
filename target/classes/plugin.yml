@@ -1,5 +1,5 @@
 name: ClickFire
-version: '${project.version}'
+version: '1.0'
 main: net.kunmc.lab.clickfire.ClickFire
 api-version: 1.16
 website: https://github.com/TeamKun
