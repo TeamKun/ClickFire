@@ -85,6 +85,7 @@ public final class ClickFire extends JavaPlugin implements Listener, CommandExec
 
     @EventHandler
     public void onClick(PlayerInteractEvent e){
+        if(!GAME) return;
         Player p = e.getPlayer();
         Action a = e.getAction();
         if(a == Action.LEFT_CLICK_BLOCK){
