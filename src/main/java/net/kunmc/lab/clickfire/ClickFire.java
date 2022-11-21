@@ -95,11 +95,12 @@ public final class ClickFire extends JavaPlugin implements Listener, CommandExec
             if (a == Action.LEFT_CLICK_BLOCK) {
                 Block block = e.getClickedBlock();
                 BlockFace blockFace = Objects.requireNonNull(p.rayTraceBlocks(6)).getHitBlockFace();
-                Block hoge = block.getRelative(Objects.requireNonNull(blockFace));
+                Block fire_ni_naru_yotei = block.getRelative(Objects.requireNonNull(blockFace));
+                if (fire_ni_naru_yotei.getType().isAir()) return;
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        hoge.setType(Material.FIRE);
+                        fire_ni_naru_yotei.setType(Material.FIRE);
                     }
                 }.runTaskLater(this, 3);
             }
