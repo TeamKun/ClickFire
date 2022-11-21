@@ -86,21 +86,24 @@ public final class ClickFire extends JavaPlugin implements Listener, CommandExec
     }
 
     @EventHandler
-    public void onClick(PlayerInteractEvent e){
-        if(!GAME) return;
-        Player p = e.getPlayer();
-        Action a = e.getAction();
-        if(Objects.requireNonNull(e.getClickedBlock()).getType().isAir()) return;
-        if(a == Action.LEFT_CLICK_BLOCK){
-            Block block = e.getClickedBlock();
-            BlockFace blockFace = Objects.requireNonNull(p.rayTraceBlocks(6)).getHitBlockFace();
-            block.getRelative(Objects.requireNonNull(blockFace));
-            new BukkitRunnable(){
-                @Override
-                public void run() {
-                    block.setType(Material.FIRE);
-                }
-            }.runTaskLater(this,3);
+    public void onClick(PlayerInteractEvent e) {
+        try {
+            if (!GAME) return;
+            Player p = e.getPlayer();
+            Action a = e.getAction();
+            if (Objects.requireNonNull(e.getClickedBlock()).getType().isAir()) return;
+            if (a == Action.LEFT_CLICK_BLOCK) {
+                Block block = e.getClickedBlock();
+                BlockFace blockFace = Objects.requireNonNull(p.rayTraceBlocks(6)).getHitBlockFace();
+                Block hoge = block.getRelative(Objects.requireNonNull(blockFace));
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        hoge.setType(Material.FIRE);
+                    }
+                }.runTaskLater(this, 3);
+            }
+        }catch (NullPointerException exception){
         }
     }
 }
