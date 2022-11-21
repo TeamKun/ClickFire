@@ -1,5 +1,6 @@
 package net.kunmc.lab.clickfire;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,12 +90,17 @@ public final class ClickFire extends JavaPlugin implements Listener, CommandExec
         if(!GAME) return;
         Player p = e.getPlayer();
         Action a = e.getAction();
+        if(Objects.requireNonNull(e.getClickedBlock()).getType().isAir()) return;
         if(a == Action.LEFT_CLICK_BLOCK){
             Block block = e.getClickedBlock();
-            BlockFace blockFace = p.rayTraceBlocks(6).getHitBlockFace();
-            Block fire = block.getRelative(blockFace);
-            fire.setType(Material.FIRE);
-
+            BlockFace blockFace = Objects.requireNonNull(p.rayTraceBlocks(6)).getHitBlockFace();
+            Block fire = block.getRelative(Objects.requireNonNull(blockFace));
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    fire.setType(Material.FIRE);
+                }
+            }.runTaskLater(this,3);
         }
     }
 }
